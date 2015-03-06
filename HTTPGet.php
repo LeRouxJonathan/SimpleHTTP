@@ -65,11 +65,7 @@ class HTTPGet
 		}	
 	}
 	
-	function setName($newname)
-	{
-	  $this->name = $newname;
-	}
-	
+
 	function getName()
 	{
 	  return $this->name;
@@ -80,11 +76,6 @@ class HTTPGet
       return $this->value;
 	}
 	
-	// USE WITH CAUTION
-	function setValue($newvalue)
-	{
-	  $this->value = $newvalue;
-	}
 	
 	function isValid()
 	{
@@ -100,45 +91,72 @@ class HTTPGet
 }
 
 
-// This function validates a specified array of name strings as valid $_GETs. 
-function validateGetGroup($requiredGetNamesArray)
+//The HTTPGetGroup allows for validation of entire groups of expected post data
+//by validating them as HTTPGet objects
+class HTTPGetGroup
 {
-	$len = count($requiredGetNamesArray);
-	$validcount = 0;
-	
-	for ($i = 0; $i < $len; $i++)
+  public $requireds;
+  
+  
+  //$requiredGetData: (array) An array of strings listing our required <input> elements or querystring elements
+  function __construct($requiredGetDataArray)
+  {
+    $this->requireds = $requiredGetDataArray;
+  }
+  
+  
+  //Determines the validity of all required values in this HTTPGetGroup
+  function isValid()
+  {
+	if (isset($this->requireds))
 	{
-		$get = new HTTPGet($requiredGetNamesArray[$i]);
-		if ($get->exists() === TRUE && $get->hasValue() === TRUE)
+	  $len = count($this->requireds);
+	  for ($i = 0; $i < $len; $i++)
+	  {
+		$get = new HTTPGet($this->requireds[$i]);
+		if ($get->exists() === FALSE && $get->hasValue() === FALSE)
 		{
-		$validcount = $validcount + 1;	
+          return FALSE;
 		}
-	}
-
-	// If the number of valid items equals that of the number of items we originally specified, return true;
-	if ($validcount === $len)
-	{
-	   return TRUE;
-	}
+	  }
+   
+      //If every required $_GET input is found with correct data, this group is valid
+      return TRUE;
+    }
 	
+	//If no array of strings has been included, this is FALSE by default.
 	else
-	{
-	   return FALSE;
-	}
-}
-
-//This function checks as to whether or not there is any $_GET data detected at all
-function getDataExists()
-{
-	if (count($_GET) === 0)
 	{
 	  return FALSE;
+	}	
+  }  
+}
+
+
+//Detects if there is $_GET data submitted to the page.
+class HTTPGetDataDetector
+{
+  public $get_data_exists;
+  
+  function __construct()
+  {
+    if (count($_GET) > 0)
+	{
+	  $this->get_data_exists = TRUE;
 	}
 	else
 	{
-	  return TRUE;
+	  $this->get_data_exists = FALSE;	
 	}
+  }
+  
+  //Determines whether or not data has been submitted to the page via a $_POST request
+  function detectsGetData()
+  {
+    return $this->post_get_exists;
+  }
 }
+
 
 
 ?>
