@@ -42,7 +42,7 @@ class HTTPPost
   }//End: Construct
    
 	
-  // Determines if the $_POST request has been received.
+  // Determines if the POST request has been received.
   function exists()
   {
     if (isset($_POST[$this->name]) === TRUE)
@@ -56,7 +56,7 @@ class HTTPPost
 	}
   }//end: exists()
 	
-  // Determine if $_POST has a valid value, or determine if it has a specific desired value
+  // Determine if POST request has a valid value, or determine if it has a specific desired value
   function hasValue($desiredValue = NULL)
   {
     // If no value is desired, we just want to ensure that this $_POST has a valid value
@@ -82,21 +82,21 @@ class HTTPPost
     }	
   }
 	
-  //Returns the name of this $_POST array element
+  //Returns the name of this POST data
   function getName()
   {
     return $this->name;
   }//end: getName()
 	
 	
-  //Returns the vale of this $_POST array element	
+  //Returns the value of this POST data	
   function getValue()
   {
     return $this->value;
   }//end: getValue()
 
 	
-  //Determines the validity of the $_POST value
+  //Determines the validity of the POST data
   function isValid()
   {
     if ($this->exists() === TRUE && $this->hasValue() === TRUE)

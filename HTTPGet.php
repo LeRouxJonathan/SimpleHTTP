@@ -25,69 +25,70 @@ class HTTPGet
 	  }
 	}
 	
-	// Determines if the $_GET item has been received.
+	//Determines if the $_GET item has been received.
 	function exists()
 	{
-	 if ( isset($_GET[$this->name]) === TRUE)
-	 {
-	 	return TRUE;
-	 }
+	  if ( isset($_GET[$this->name]) === TRUE)
+	  {
+	    return TRUE;
+	  }
 	 
-	 else 
-	 {
+	  else 
+	  {
 	    return FALSE;	 
-	 }
-	}
+	  }
+	}//end: exists()
 	
 	// Determine if $_GET has a valid value, or determine if it has a specific desired value
 	function hasValue($desiredValue = NULL)
 	{
-		// If no value is desired, we just want to ensure that this $_GET has a valid value
-		if ($desiredValue === NULL)
+	  // If no value is desired, we just want to ensure that this $_GET has a valid value
+	  if ($desiredValue === NULL)
+	  {
+	    if ($this->exists() === TRUE && $this->value !== NULL && trim($this->value) !== "")
 		{
-		   if ($this->exists() === TRUE && $this->value !== NULL && trim($this->value) !== "")
-		   {
-		   return TRUE;
-		   }
-		   else 
-		   {
-		   return FALSE;   
-		   }
+		  return TRUE;
+	    }
+		else 
+		{
+		  return FALSE;   
 		}
+	  }
 		
-		// If a specific value is desired, see if the value of this $_GET is equal to it.
-		if ($desiredValue !== NULL)
+	  // If a specific value is desired, see if the value of this $_GET is equal to it.
+	  if ($desiredValue !== NULL)
+	  {
+	    if ($this->exists() === TRUE && $this->value === $desiredValue)
 		{
-		   if ($this->exists() === TRUE && $this->value === $desiredValue)
-		   {
-		   	  return TRUE;
-		   }
-		}	
-	}
+		  return TRUE;
+		}
+	  }	
+	}//end: hasValue()
 	
-
+    //Returns the input name associated with the GET data
 	function getName()
 	{
 	  return $this->name;
 	}
 	
+	//Returns the value of the GET data
 	function getValue()
 	{
       return $this->value;
 	}
 	
-	
+	//Determines the validity of the GET data
 	function isValid()
 	{
-		if ($this->exists() === TRUE && $this->hasValue() === TRUE)
-		{
-			return TRUE;
-		}
-		else 
-		{
-			return FALSE; 
-		}
-	}
+	  if ($this->exists() === TRUE && $this->hasValue() === TRUE)
+	  {
+	    return TRUE;
+	  }
+	  else 
+	  {
+	    return FALSE; 
+	  }
+	}//end: isValid()
 }
 
 
@@ -154,9 +155,7 @@ class HTTPGetDataDetector
   function detectsGetData()
   {
     return $this->post_get_exists;
-  }
+  }//end: detectsGetData()
 }
-
-
 
 ?>
