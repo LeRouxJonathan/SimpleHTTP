@@ -93,8 +93,8 @@ Our PHP script to handle the data received from our signup form: <strong>karate-
       //With our data validated, we'll set up our HTTPPost objects
       //Sanitation is performed on object construction
       $first_name = new HTTPPost("first-name");
-      $last_name = new HTTPPost("last_name");
-      $belt_level = new HTTPPost("belt_level");
+      $last_name = new HTTPPost("last-name");
+      $belt_level = new HTTPPost("belt-level");
       
       //Perform custom logic here...
       
