@@ -79,7 +79,7 @@ Our PHP script to handle the data received from our signup form: <strong>karate-
   require("path/to/SimpleHTTP/SimpleHTTP.php"); //Include our SimpleHTTP files
   
   //First, let's make sure we're receiving purely POST ($_POST) data on this page
-  $detector = new HTTPPostDetector();
+  $detector = new HTTPPostDataDetector();
   if ($detector->detectsPostData() === TRUE)
   {
     //Define via an array the POST data, by <input name = ...>, that we're expecting to receive
