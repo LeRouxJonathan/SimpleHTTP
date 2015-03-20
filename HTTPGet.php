@@ -154,7 +154,7 @@ class HTTPGetDataDetector
   //Determines whether or not data has been submitted to the page via a $_POST request
   function detectsGetData()
   {
-    return $this->post_get_exists;
+    return $this->get_data_exists;
   }//end: detectsGetData()
 }
 
